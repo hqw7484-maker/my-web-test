@@ -1,0 +1,23 @@
+{
+    "log": { "loglevel": "none" },
+    "inbounds": [{
+        "port": 8080,
+        "listen": "127.0.0.1",
+        "protocol": "vless",
+        "settings": {
+            "clients": [{
+                "id": "f8b2d3c1-a5e4-4b92-9d3f-7c1a2b3c4d5e",
+                "level": 0
+            }],
+            "decryption": "none"
+        },
+        "streamSettings": {
+            "network": "ws",
+            "wsSettings": { "path": "/assets/v1/physics/stream" }
+        }
+    }],
+    "outbounds": [{
+        "protocol": "freedom",
+        "settings": {}
+    }]
+}
