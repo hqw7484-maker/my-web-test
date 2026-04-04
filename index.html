@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamics Lab v3.1</title>
+    <style>
+        body { margin: 0; background: #050505; color: #00d4ff; font-family: monospace; overflow: hidden; }
+        #ui { position: absolute; top: 20px; left: 20px; border-left: 2px solid #00d4ff; padding-left: 10px; z-index: 100; pointer-events: none; }
+        .stat { font-size: 11px; color: #666; margin: 4px 0; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h3>MOLECULAR_CORE_ACTIVE</h3>
+        <div class="stat">NODE: RENDER_CLUSTER_PRO</div>
+        <div class="stat">ENGINE: QUANTUM_SIM_V4</div>
+        <div class="stat">STATUS: <span style="color:#0f0">COMPUTING</span></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene, camera, renderer, atoms;
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            atoms = new THREE.Group();
+            for(let i=0; i<80; i++) {
+                const geo = new THREE.IcosahedronGeometry(Math.random()*2, 0);
+                const mat = new THREE.MeshPhongMaterial({ color: 0x00d4ff, wireframe: true });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set(Math.random()*160-80, Math.random()*160-80, Math.random()*160-80);
+                atoms.add(mesh);
+            }
+            scene.add(atoms);
+            const light = new THREE.PointLight(0xffffff, 1); light.position.set(50, 50, 50); scene.add(light);
+            camera.position.z = 100;
+        }
+        function animate() {
+            requestAnimationFrame(animate);
+            atoms.rotation.y += 0.002; atoms.rotation.x += 0.001;
+            renderer.render(scene, camera);
+        }
+        init(); animate();
+        window.onresize = () => { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); };
+    </script>
+</body>
+</html>
