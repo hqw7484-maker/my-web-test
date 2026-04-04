@@ -1,0 +1,23 @@
+{
+    "log": { "loglevel": "none" },
+    "inbounds": [{
+        "port": 8080,
+        "listen": "127.0.0.1",
+        "protocol": "vless",
+        "settings": {
+            "clients": [{
+                "id": "这里填你的UUID",
+                "level": 0
+            }],
+            "decryption": "none"
+        },
+        "streamSettings": {
+            "network": "ws",
+            "wsSettings": { "path": "/v2" }
+        }
+    }],
+    "outbounds": [{
+        "protocol": "freedom",
+        "settings": {}
+    }]
+}
